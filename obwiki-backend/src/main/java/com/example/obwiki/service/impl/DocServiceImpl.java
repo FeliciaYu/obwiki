@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.obwiki.entity.Content;
 import com.example.obwiki.entity.Doc;
 import com.example.obwiki.mapper.DocMapper;
+import com.example.obwiki.mapper.EbookMapper;
 import com.example.obwiki.rep.DocQueryReq;
 import com.example.obwiki.rep.DocSaveReq;
 import com.example.obwiki.resp.DocQueryResp;
@@ -33,10 +34,15 @@ import java.util.List;
 public class DocServiceImpl extends ServiceImpl<DocMapper, Doc> implements IDocService {
     @Autowired
     private SnowFlake snowFlake;
+    @Autowired
+    private EbookMapper ebookMapper;
+
 
     @Override
     public List<DocQueryResp> allbyEbookId(Long ebookId) {
 
+        //该电子书阅读数+1
+        ebookMapper.increaseViewCount(ebookId);
         QueryWrapper<Doc> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("ebook_id",ebookId).orderByAsc("sort");
         List<Doc> doclist = this.baseMapper.selectList(queryWrapper);
@@ -94,7 +100,10 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, Doc> implements IDocS
             }
         }
     }
-
+    @Override
+    public void vote(Long id) {
+        this.baseMapper.increaseVoteCount(id);
+    }
     @Override
     public void delete(Long id) {
         this.baseMapper.deleteById(id);
