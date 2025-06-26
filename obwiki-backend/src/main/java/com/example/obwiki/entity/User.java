@@ -37,6 +37,11 @@ public class User implements Serializable {
      */
     private String password;
 
+    /**
+     * 盐值
+     */
+    private String salt;
+
 
     public Long getId() {
         return id;
@@ -69,6 +74,10 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getSalt(){return salt;}
+
+    public void setSalt(String salt){this.salt = salt;}
 
     @Override
     public String toString() {
