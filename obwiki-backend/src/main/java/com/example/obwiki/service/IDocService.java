@@ -25,6 +25,8 @@ public interface IDocService extends IService<Doc> {
 
     void save(DocSaveReq req);
 
+    void vote(Long id);
+
     void delete(Long id);
 
     List<DocQueryResp> all();

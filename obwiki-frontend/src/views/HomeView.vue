@@ -58,6 +58,28 @@
                   />
                   {{ text }}
                 </span>
+
+                <span >
+                  <component
+                    :is="'FileOutlined'"
+                    style="margin-right: 8px"
+                  />
+                  {{ item.docCount }}
+                </span>
+                <span>
+                  <component
+                    :is="'UserOutlined'"
+                    style="margin-right: 8px"
+                  />
+                  {{ item.viewCount }}
+                </span>
+                <span>
+                  <component
+                    :is="'LikeOutlined'"
+                    style="margin-right: 8px"
+                  />
+                  {{ item.voteCount }}
+                </span>
               </template>
 
               <a-list-item-meta :description="item.description">
