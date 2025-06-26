@@ -1,5 +1,9 @@
 // 初始化axios
 import axios from 'axios';
+import {message} from "ant-design-vue";
+import store from "@/store";
+import {Tool} from "@/utils/tool";
+import router from "@/router";
 
 const api = axios.create({
   baseURL: "http://127.0.0.1:8880/obwiki", // 使用环境变量设置基础URL
@@ -10,19 +14,31 @@ const api = axios.create({
 /*
 * 使用axios拦截器打印请求和响应的数据
 * */
-api.interceptors.request.use(function (config){
-  // console.log('请求参数：',config);
 
-  return config;
-},error => {
-  return Promise.reject(error);
-});
+api.interceptors.request.use((config) => {
+    console.log('请求参数：', config);
 
-api.interceptors.response.use(function (response){
-  // console.log('返回结果：',response);
+    // 从 store 获取 token
+  console.log("获取token：",store.state.user?.token)
+    const token = store.state.user?.token;
+
+    if (Tool.isNotEmpty(token)) {
+      // 使用标准 Authorization 头
+      config.headers.token = `${token}`;
+      console.log("请求headers增加token:", token);
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  });
+
+// 添加响应拦截器处理错误
+api.interceptors.response.use(response => {
+  console.log('响应结果：', response);
   return response;
-},error => {
-  // console.log('返回错误：',error);
+}, error => {
+  const { response } = error;
   return Promise.reject(error);
 });
 
