@@ -21,7 +21,7 @@ public class TestJob {
         SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
         String dateString = formatter.format(new Date());
         Thread.sleep(2000);
-        LOG.info("每隔5秒钟执行一次： {}", dateString);
+//        LOG.info("每隔5秒钟执行一次： {}", dateString);
     }
 
     /**

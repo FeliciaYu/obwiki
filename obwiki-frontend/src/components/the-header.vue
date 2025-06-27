@@ -1,6 +1,6 @@
 <template>
   <a-layout-header class="header">
-    <div class="logo" />
+    <div class="logo" >海洋生物知识库 </div>
     <a-menu
       theme="dark"
       mode="horizontal"
@@ -159,11 +159,13 @@ const logout = () => {
 
 <style scoped>
 .logo {
-  float: left;
-  width: 120px;
+  width: 150px;
   height: 31px;
-  margin: 16px 24px 16px 0;
-  background: rgba(255, 255, 255, 0.3);
+  /*background: rgba(255, 255, 255, 0.2);*/
+  /*margin: 16px 28px 16px 0;*/
+  float: left;
+  color: white;
+  font-size: 18px;
 }
 
 .login-menu {

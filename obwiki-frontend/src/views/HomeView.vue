@@ -36,7 +36,7 @@
           v-show="isShowWelcome"
           class="welcome"
         >
-          <h1>欢迎</h1>
+          <the-welcome />
         </div>
         <a-list
           v-show="!isShowWelcome"
@@ -59,7 +59,7 @@
                   {{ text }}
                 </span>
 
-                <span >
+                <span>
                   <component
                     :is="'FileOutlined'"
                     style="margin-right: 8px"
@@ -101,6 +101,7 @@
 </template>
 
 <script lang="ts" setup>
+import TheWelcome from '../components/the-welcome.vue';
 import { ref, onMounted } from 'vue';
 import api from '@/api/index'
 import {Tool} from '@/utils/tool';
