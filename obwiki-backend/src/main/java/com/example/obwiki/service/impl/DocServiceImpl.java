@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.obwiki.entity.Content;
 import com.example.obwiki.entity.Doc;
+import com.example.obwiki.exception.BusinessException;
+import com.example.obwiki.exception.BusinessExceptionCode;
 import com.example.obwiki.mapper.DocMapper;
 import com.example.obwiki.mapper.EbookMapper;
 import com.example.obwiki.rep.DocQueryReq;
@@ -16,6 +18,8 @@ import com.example.obwiki.service.IContentService;
 import com.example.obwiki.service.IDocService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.obwiki.utils.CopyUtil;
+import com.example.obwiki.utils.RedisUtil;
+import com.example.obwiki.utils.RequestContext;
 import com.example.obwiki.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +40,8 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, Doc> implements IDocS
     private SnowFlake snowFlake;
     @Autowired
     private EbookMapper ebookMapper;
-
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public List<DocQueryResp> allbyEbookId(Long ebookId) {
@@ -102,7 +107,14 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, Doc> implements IDocS
     }
     @Override
     public void vote(Long id) {
-        this.baseMapper.increaseVoteCount(id);
+
+        //key为  DOC_VOTE_123123123_0:0:0:0:0:0:0:1
+        String key ="DOC_VOTE_"+id+"_"+ RequestContext.getRemoteAddr();
+        if(redisUtil.validateRepeat(key,3600*24)){
+            this.baseMapper.increaseVoteCount(id);
+        }else{
+            throw new BusinessException(BusinessExceptionCode.VOTE_REPEAT);
+        }
     }
     @Override
     public void delete(Long id) {
