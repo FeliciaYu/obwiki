@@ -32,4 +32,6 @@ public interface IDocService extends IService<Doc> {
     List<DocQueryResp> all();
 
     void delete(List<Long> ids);
+
+    void updateEbookInfo();
 }

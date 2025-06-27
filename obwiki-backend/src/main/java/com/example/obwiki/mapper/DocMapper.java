@@ -18,4 +18,6 @@ public interface DocMapper extends BaseMapper<Doc> {
     void increaseViewCount(Long id);
 
     void increaseVoteCount(Long id);
+
+    void updateEbookInfo();
 }
