@@ -1,5 +1,5 @@
 <template >
-  <div>
+  <div style="height: 100%">
     <a-layout>
       <a-layout-content
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
@@ -178,7 +178,6 @@ const  handleQuery = (params:any)=>{
 * 表格点击页码时触发
 * */
 const handleTableChange =(pagination:any)=>{
-  console.log("看看自带分页的参数都有些啥："+pagination);
   handleQuery({
     page:pagination.current,
     size:pagination.pageSize

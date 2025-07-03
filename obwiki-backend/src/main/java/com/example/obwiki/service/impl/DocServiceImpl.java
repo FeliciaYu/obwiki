@@ -23,7 +23,7 @@ import com.example.obwiki.utils.RequestContext;
 import com.example.obwiki.utils.SnowFlake;
 import com.example.obwiki.websocket.WebSocketServer;
 import com.example.obwiki.websocket.WsServiceAsync;
-import org.apache.rocketmq.spring.core.RocketMQTemplate;
+//import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -52,8 +52,8 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, Doc> implements IDocS
     private WebSocketServer webSocketServer;
     @Autowired
     private WsServiceAsync wsServiceAsync;
-    @Resource
-    private RocketMQTemplate rocketMQTemplate;
+//    @Resource
+//    private RocketMQTemplate rocketMQTemplate;
 
     @Override
     public List<DocQueryResp> allbyEbookId(Long ebookId) {
@@ -119,7 +119,7 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, Doc> implements IDocS
     }
     @Override
     public void vote(Long id) {
-
+        System.out.println("===用户点赞===");
         //key为  DOC_VOTE_123123123_192.168.0.1
         String key ="DOC_VOTE_"+id+"_"+RequestContext.getRemoteAddr();
         if(redisUtil.validateRepeat(key,3600*24)){
@@ -132,7 +132,7 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, Doc> implements IDocS
         String logId = MDC.get("LOG_ID");
         //wsServiceAsync.sendInfo("【您的文档 " + doc.getName() + "】被点赞！",logId);
         //参数1  发送队列 参数2消息内容
-        rocketMQTemplate.convertAndSend("VOTE_TOPIC", "【" + doc.getName() + "】被点赞！");
+//        rocketMQTemplate.convertAndSend("VOTE_TOPIC", "【" + doc.getName() + "】被点赞！");
     }
 
     @Override

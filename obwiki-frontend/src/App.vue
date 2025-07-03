@@ -1,5 +1,5 @@
 <template>
-  <a-layout>
+  <a-layout style="height: 100vh">
     <the-header />
 
     <router-view />

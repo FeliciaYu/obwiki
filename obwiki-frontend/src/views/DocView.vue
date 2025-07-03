@@ -1,5 +1,5 @@
 <template>
-  <a-layout>
+  <a-layout style="height: 100%">
     <a-layout-content :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }">
       <h3 v-if="level1.length === 0">
         对不起，找不到相关文档!
@@ -15,7 +15,7 @@
             @select="onSelect"
           />
         </a-col>
-        <a-col :span="18">
+        <a-col :span="18" v-if="doc.name">
           <div>
             <h2>{{ doc.name }}</h2>
             <div>
@@ -24,6 +24,7 @@
             </div>
             <a-divider style="height: 2px; background-color: #9999cc" />
           </div>
+          <div v-if="!html" style="color: grey">该文档目前还没有内容噢!</div>
           <div
             class="wangeditor"
             :innerHTML="html"
@@ -41,6 +42,9 @@
               </template>
             </a-button>
           </div>
+        </a-col>
+        <a-col :span="18" v-else class="didi">
+          <p>请选择文档进行阅读吧！o(*￣▽￣*)ブ</p>
         </a-col>
       </a-row>
     </a-layout-content>
@@ -139,6 +143,12 @@ const vote = () => {
 </script>
 
 <style>
+.didi {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: grey;
+}
 /* wangeditor默认样式, 参照: http://www.wangeditor.com/doc/pages/02-%E5%86%85%E5%AE%B9%E5%A4%84%E7%90%86/03-%E8%8E%B7%E5%8F%96html.html */
 /* table 样式 */
 .wangeditor table {

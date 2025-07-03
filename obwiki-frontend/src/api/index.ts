@@ -6,7 +6,7 @@ import {Tool} from "@/utils/tool";
 import router from "@/router";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8880/obwiki", // 使用环境变量设置基础URL
+  baseURL: "http://localhost:8880/obwiki", // 使用环境变量设置基础URL
   timeout: 10000, // 设置请求超时时间为10秒
 });
 

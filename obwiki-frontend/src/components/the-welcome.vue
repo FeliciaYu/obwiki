@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-row>
+    <a-row style="margin-top: 20px">
       <a-col :span="24">
         <a-card>
           <a-row>
@@ -108,6 +108,7 @@
       <a-col
         id="main-col"
         :span="24"
+        style="margin-top: 20px"
       >
         <div
           id="main"
@@ -128,7 +129,6 @@ statistic.value = {};
 const getStatistic = () => {
   api.get('/ebookSnapshot/getStatistic').then((response) => {
     const data = response.data;
-    console.log("data", data);
     if (data.success) {
       const statisticResp = data.content[0];
       //设置今天点赞数及阅读数

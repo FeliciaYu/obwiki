@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <a-layout>
+  <div style="height: 100%;">
+    <a-layout style="height: 100%">
       <a-layout-sider
         width="200"
         style="background: #fff"
@@ -31,7 +31,7 @@
         </a-menu>
       </a-layout-sider>
 
-      <a-layout-content :style="{ padding: '0 24px', minHeight: '280px' }">
+      <a-layout-content :style="{ padding: '0 24px', minHeight: '280px', height: '100%', marginTop: '20px' }">
         <div
           v-show="isShowWelcome"
           class="welcome"
@@ -46,7 +46,7 @@
           :data-source="ebooks"
         >
           <template #renderItem="{ item }">
-            <a-list-item key="item.name">
+            <a-list-item key="item.name" style="background: #fff;padding: 15px; border-radius: 10px;">
               <template #actions>
                 <span
                   v-for="{ icon, text } in actions"
@@ -82,16 +82,16 @@
                 </span>
               </template>
 
+              <router-link :to="'/doc?ebookId='+item.id">
               <a-list-item-meta :description="item.description">
                 <template #title>
-                  <router-link :to="'/doc?ebookId='+item.id">
-                    {{ item.name }}
-                  </router-link>
+                  {{ item.name }}
                 </template>
                 <template #avatar>
                   <a-avatar :src="item.cover" />
                 </template>
               </a-list-item-meta>
+              </router-link>
             </a-list-item>
           </template>
         </a-list>
